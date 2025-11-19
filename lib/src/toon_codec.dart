@@ -106,8 +106,8 @@ const toonCodec = ToonCodec();
 /// Convenience class that provides static methods for TOON operations
 ///
 /// Similar to dart:convert's json class but for TOON format.
-class toon {
-  toon._();
+class Toon {
+  Toon._();
 
   /// Encode a Dart object to TOON format string
   ///

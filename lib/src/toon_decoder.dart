@@ -9,12 +9,7 @@ import 'toon_converter.dart';
 /// TOON decoder that parses TOON string format to Dart objects
 class ToonDecoder extends convert.Converter<String, Object?> {
   /// Creates a new TOON decoder with the given options
-  ToonDecoder({ToonOptions? options, ToonConverterRegistry? converterRegistry})
-    : _options = options ?? ToonOptions.defaults,
-      _converterRegistry = converterRegistry ?? globalToonConverterRegistry;
-
-  final ToonOptions _options;
-  final ToonConverterRegistry _converterRegistry;
+  ToonDecoder({ToonOptions? options, ToonConverterRegistry? converterRegistry});
 
   /// Decode the given TOON string to Dart objects
   @override
