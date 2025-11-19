@@ -1,4 +1,4 @@
-## 1.0.0
+## 0.1.0
 
 - **Initial release** of Flutter CarToon - comprehensive TOON formatter plugin
 - Complete ToonCodec implementation following dart:convert patterns
