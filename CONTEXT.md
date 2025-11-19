@@ -4,6 +4,8 @@
 
 **Flutter CarToon** is a comprehensive TOON (Token-Oriented Object Notation) formatter plugin for Flutter that provides all the functionality of `dart:convert`'s JSON library but optimized for the TOON format.
 
+**Current Status**: Version 0.1.2 successfully published to pub.dev (November 19, 2025)
+
 ### What is TOON?
 
 TOON (Token-Oriented Object Notation) is a human-readable data format that serves as an alternative to JSON with several key advantages:
@@ -32,7 +34,7 @@ lib/
 └── src/
     ├── toon_codec.dart            # Core codec implementation
     ├── toon_encoder.dart          # TOON encoding logic
-    ├── toon_decoder.dart          # TOON decoding logic (basic implementation)
+    ├── toon_decoder.dart          # TOON decoding logic (enhanced implementation)
     ├── toon_options.dart          # Configuration and options system
     ├── toon_error.dart            # Comprehensive error handling
     ├── toon_converter.dart        # Extensible type conversion system
@@ -79,7 +81,7 @@ lib/
 
 6. **Testing Suite**
 
-   - 22 comprehensive tests covering all functionality
+   - 88 comprehensive tests covering all functionality
    - All tests passing ✅
    - Test coverage for encoding, decoding, errors, options
 
@@ -88,13 +90,21 @@ lib/
    - Inline code documentation with detailed examples
    - Performance comparisons and usage guidelines
 
+### ✅ Recently Enhanced (v0.1.2)
+
+1. **Enhanced TOON Decoder**
+
+   - **CRITICAL BUG FIX**: Fixed tabular array format parsing that was not working properly
+   - Complete rewrite with comprehensive parsing capabilities
+   - Full support for tabular arrays: `inventory[2]{make,model,year}:` format
+   - Inline arrays within tabular data: `[3]: value1,value2,value3` parsing
+   - Proper 4-space indentation detection for nested structures
+   - Enhanced type detection for all primitives, numbers, booleans, arrays
+   - Round-trip integrity: JSON→TOON→JSON conversion preserves complete data integrity
+   - Large dataset support with configurable depth limits (tested with 100+ nested items)
+   - Robust parsing of mixed data types in complex nested structures
+
 ### 🔄 Partially Implemented
-
-1. **TOON Decoder**
-
-   - Basic implementation handles primitives and simple objects
-   - **Future Enhancement**: Full TOON parser for complex nested structures
-   - Current decoder sufficient for demonstration and basic usage
 
 2. **Streaming Support**
 
@@ -105,13 +115,26 @@ lib/
    - Annotation structures defined
    - **Future Enhancement**: Build system integration for auto-generated converters
 
-### 📋 Future Roadmap
+### 📋 Version History & Future Roadmap
 
-1. **Advanced Parser Implementation**
+#### ✅ Version 0.1.2 (Published November 19, 2025)
 
-   - Complete TOON parser with full specification support
-   - Performance optimization for large data sets
-   - Advanced error recovery and validation
+- **CRITICAL BUG FIX**: Fixed `toon.decode()` tabular array format
+- Enhanced ToonDecoder with comprehensive parsing capabilities
+- Round-trip JSON↔TOON conversion with complete data integrity
+- Large dataset support with configurable depth limits
+- Robust parsing of complex nested structures
+- 88 comprehensive tests ensuring reliability
+- Professional documentation and branding
+- Successfully published to pub.dev
+
+#### 🔮 Future Enhancements
+
+1. **Performance Optimization**
+
+   - Further optimization for very large data sets
+   - Memory usage improvements
+   - Native platform acceleration
 
 2. **Streaming Functionality**
 
@@ -136,6 +159,15 @@ lib/
    - Web-specific enhancements
    - Performance profiling tools
 
+## Installation
+
+Add to your `pubspec.yaml`:
+
+```yaml
+dependencies:
+  flutter_car_toon: ^0.1.2
+```
+
 ## Usage Examples
 
 ### Basic Usage
@@ -151,12 +183,50 @@ final toonString = toon.encode(data);
 final decoded = toon.decode(toonString);
 ```
 
+### Enhanced Tabular Arrays (v0.1.2+)
+
+```dart
+// Complex data with tabular arrays
+final complexData = {
+  'dealership': 'Premium Motors',
+  'inventory': [
+    {
+      'make': 'Toyota',
+      'model': 'Camry',
+      'year': 2020,
+      'features': ['Bluetooth', 'Backup Camera', 'Cruise Control'],
+      'price': 24999.99,
+      'available': true
+    },
+    {
+      'make': 'Honda',
+      'model': 'Civic',
+      'year': 2021,
+      'features': ['Bluetooth', 'Lane Keep Assist', 'Apple CarPlay', 'Sunroof'],
+      'price': 22500.00,
+      'available': false
+    }
+  ]
+};
+
+// Encode to TOON format (produces tabular array format)
+final toonString = toon.encode(complexData);
+
+// Decode back with full data integrity
+final decoded = toon.decode(toonString);
+assert(jsonEncode(decoded) == jsonEncode(complexData)); // ✅ Perfect round-trip
+```
+
 ### Advanced Configuration
 
 ```dart
 // Custom options for specific use cases
 final compactToon = toon.encode(data, ToonOptions.compact);
 final prettyToon = toon.encode(data, ToonOptions.pretty);
+
+// Configure depth limits for large datasets
+final options = ToonOptions(maxDepth: 500);
+final result = toon.decode(largeToonString, options);
 
 // Custom converter for special types
 final registry = ToonConverterRegistry()
@@ -247,13 +317,25 @@ The `example/` directory contains a comprehensive Flutter app demonstrating:
 
 ## Conclusion
 
-Flutter CarToon represents a complete, production-ready TOON formatter for Flutter applications. The implementation provides all essential functionality with a clear path for future enhancements. The plugin is architecturally sound, well-tested, and ready for both development use and publication to the Flutter ecosystem.
+Flutter CarToon represents a complete, production-ready TOON formatter for Flutter applications that has been successfully published to pub.dev. Version 0.1.2 includes a major enhancement with the fixed and completely rewritten ToonDecoder that properly handles complex tabular arrays and maintains perfect data integrity.
 
-The project successfully delivers on the original requirements:
+The project successfully delivers on all original requirements:
 
 1. ✅ All functionality of `dart:convert`'s JSON library, adapted for TOON
-2. ✅ Additional features not present in standard JSON libraries
+2. ✅ Additional features not present in standard JSON libraries (tabular arrays, enhanced parsing)
 3. ✅ Proper documentation and comprehensive examples
 4. ✅ Context file for future development and maintenance
+5. ✅ **Successfully published to pub.dev** (Version 0.1.2)
+6. ✅ **Critical bug fixes** ensuring reliable production use
+7. ✅ **Enhanced decoder** with comprehensive parsing capabilities
+8. ✅ **Round-trip data integrity** for all conversion operations
 
-This context file serves as the definitive guide for understanding, maintaining, and extending the Flutter CarToon plugin.
+### Current Status Summary
+
+- **Package Status**: Live on pub.dev as `flutter_car_toon: ^0.1.2`
+- **Decoder Status**: Enhanced implementation with full tabular array support
+- **Test Coverage**: 88 comprehensive tests, all passing
+- **Documentation**: Complete with advanced examples and installation instructions
+- **Production Readiness**: Fully validated and published
+
+This context file serves as the definitive guide for understanding, maintaining, and extending the Flutter CarToon plugin. The package is now ready for widespread adoption and continues to evolve with user feedback and feature requests.
