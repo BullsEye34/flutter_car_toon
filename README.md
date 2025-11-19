@@ -14,21 +14,21 @@ While [`toon_formatter`](https://pub.dev/packages/toon_formater) provides basic 
 | --------------------- | ------------------------------------------------- | ------------------------- |
 | **🛡️ Error Handling** | Comprehensive with detailed context & suggestions | Basic error messages      |
 | **✅ Validation**     | Full document validator with severity levels      | No validation support     |
-| **🌊 Streaming**      | Built-in streaming for large datasets             | No streaming support      |
+| **🌊 Streaming**      | Basic streaming framework (expanding)             | No streaming support      |
 | **🔧 Extensibility**  | Custom type converters & plugins                  | Limited customization     |
 | **⚡ Performance**    | Multiple optimization strategies                  | Basic implementation      |
 | **📚 API Design**     | Mirrors `dart:convert` patterns                   | Simple encode/decode only |
 | **🔍 Testing**        | 88 comprehensive tests                            | Limited test coverage     |
 | **📖 Documentation**  | Complete API docs & examples                      | Basic documentation       |
-| **🛠️ Tooling**        | CLI tools planned                                 | No additional tools       |
+| **🛠️ Tooling**        | Rich API (CLI tools planned)                      | No additional tools       |
 
 ### 💡 **Unique Features**
 
-- **Enterprise-ready**: Production-grade error handling and validation
-- **Developer-friendly**: Familiar `dart:convert` API patterns
-- **Extensible**: Custom converters for DateTime, Duration, and more
-- **Future-proof**: Code generation support planned
-- **Performance-focused**: Optimized for different use cases
+- **Production-ready**: Comprehensive error handling with detailed context
+- **Developer-friendly**: Familiar `dart:convert` API patterns (exact same interface)
+- **Extensible**: Built-in converters for DateTime, Duration, BigInt, URI types
+- **Well-tested**: 88 comprehensive tests ensure reliability
+- **Performance-focused**: Multiple optimization strategies for different use cases
 
 > **Acknowledgments**: This project is highly inspired by the [`toon_formatter`](https://pub.dev/packages/toon_formater) package and follows the architectural patterns established by Dart's [`dart:convert`](https://api.dart.dev/stable/dart-convert/dart-convert-library.html) library to ensure familiar and consistent usage patterns.
 
@@ -212,18 +212,21 @@ final data = {
 final encoded = toon.encode(data);
 ```
 
-### Streaming Support (Large Data)
+### Streaming Support (Basic Implementation)
 
 ```dart
-// Stream processing for large datasets
-final stream = ToonStream.fromFile('large_data.toon');
+// Basic streaming from string sources (currently available)
+final stream = ToonStream.fromString(toonData);
 await for (final chunk in stream.decode()) {
   processChunk(chunk);
 }
 
-// Transform JSON stream to TOON
+// Transform JSON stream to TOON (available)
 final jsonStream = Stream.fromIterable(['{"a":1}', '{"b":2}']);
 final toonStream = ToonStream().fromJson(jsonStream);
+
+// File streaming planned for future versions
+// final fileStream = ToonStream.fromFile('data.toon'); // Coming soon
 ```
 
 ## Predefined Options
@@ -338,20 +341,20 @@ class User {
 
 ## 📊 Detailed Comparison with Existing Packages
 
-| Feature                      | flutter_car_toon       | toon_formatter | Advantages                                     |
-| ---------------------------- | ---------------------- | -------------- | ---------------------------------------------- |
-| **Basic encode/decode**      | ✅ Full API            | ✅ Basic       | Complete `dart:convert` compatibility          |
-| **Custom options**           | ✅ 15+ options         | ✅ Limited     | Comprehensive configuration                    |
-| **Error handling**           | ✅ 6 error types       | ❌ Basic       | Detailed context, suggestions, source excerpts |
-| **Validation**               | ✅ Full validator      | ❌ None        | Document validation with severity levels       |
-| **Streaming**                | ✅ Built-in streams    | ❌ None        | Handle large datasets efficiently              |
-| **Type converters**          | ✅ Extensible system   | ❌ Limited     | DateTime, Duration, custom types               |
-| **Performance optimization** | ✅ Multiple strategies | ❌ Basic       | Compact, pretty, performance modes             |
-| **Test coverage**            | ✅ 88 comprehensive    | ❌ Limited     | Production-ready reliability                   |
-| **Documentation**            | ✅ Complete API docs   | ❌ Basic       | Examples, guides, API reference                |
-| **Code generation**          | 🚧 Planned v1.1        | ✅ Available   | Will support @ToonSerializable                 |
-| **CLI tools**                | 🚧 Planned v1.2        | ❌ None        | Format validation, conversion tools            |
-| **Platform support**         | ✅ All platforms       | ✅ All         | Flutter Web, Desktop, Mobile                   |
+| Feature                      | flutter_car_toon            | toon_formatter | Advantages                                     |
+| ---------------------------- | --------------------------- | -------------- | ---------------------------------------------- |
+| **Basic encode/decode**      | ✅ Full API                 | ✅ Basic       | Complete `dart:convert` compatibility          |
+| **Custom options**           | ✅ 12 comprehensive options | ✅ Limited     | Extensive configuration system                 |
+| **Error handling**           | ✅ 6 error types            | ❌ Basic       | Detailed context, suggestions, source excerpts |
+| **Validation**               | ✅ Validation framework     | ❌ None        | Built-in validation system                     |
+| **Streaming**                | ✅ Basic streaming API      | ❌ None        | Foundation for large dataset processing        |
+| **Type converters**          | ✅ Extensible system        | ❌ Limited     | DateTime, Duration, custom types               |
+| **Performance optimization** | ✅ Multiple strategies      | ❌ Basic       | Compact, pretty, performance modes             |
+| **Test coverage**            | ✅ 88 comprehensive         | ❌ Limited     | Production-ready reliability                   |
+| **Documentation**            | ✅ Complete API docs        | ❌ Basic       | Examples, guides, API reference                |
+| **Code generation**          | 🚧 Planned v0.2.0           | ✅ Available   | Will support @ToonSerializable                 |
+| **CLI tools**                | 🚧 Planned v0.3.0           | ❌ None        | Format validation, conversion tools            |
+| **Platform support**         | ✅ All platforms            | ✅ All         | Flutter Web, Desktop, Mobile                   |
 
 ### 🎯 **Migration Benefits**
 
