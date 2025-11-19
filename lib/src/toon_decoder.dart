@@ -29,7 +29,8 @@ class ToonDecoder extends convert.Converter<String, Object?> {
     }
 
     // Simple decoder implementation for basic functionality
-    // TODO: Implement full TOON parser
+    // Note: This basic implementation handles primitives and simple objects.
+    // A full TOON parser implementation is planned for future versions.
     return _parseSimpleToon(source);
   }
 

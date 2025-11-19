@@ -16,9 +16,13 @@ class ToonStream {
   final ToonOptions _options;
 
   /// Create a stream from a file path
+  ///
+  /// Note: File streaming functionality is planned for future versions.
+  /// Currently throws [UnimplementedError].
   static Stream<String> fromFile(String filePath) {
-    // TODO: Implement file streaming
-    throw UnimplementedError('File streaming not yet implemented');
+    throw UnimplementedError(
+      'File streaming functionality is planned for future versions',
+    );
   }
 
   /// Create a stream from a string source
