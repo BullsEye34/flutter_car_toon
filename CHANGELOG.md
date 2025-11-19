@@ -1,3 +1,12 @@
+## 0.1.1
+
+- **Documentation Enhancement** - Major README improvements with detailed comparison tables
+- **Repository Links Fixed** - Updated all GitHub URLs to use correct username (BullsEye34)
+- **Code Quality** - Fixed analyzer warnings and improved code cleanliness
+- **Test Suite Expansion** - Enhanced test coverage to 88 comprehensive tests
+- **Honest Feature Claims** - Clarified actual vs planned features for transparency
+- **Version Planning** - Corrected semantic versioning for future releases (0.2.0, 0.3.0)
+
 ## 0.1.0
 
 - **Initial release** of Flutter CarToon - comprehensive TOON formatter plugin
