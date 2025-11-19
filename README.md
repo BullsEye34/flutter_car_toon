@@ -2,7 +2,18 @@
 
 # Flutter CarToon
 
-A comprehensive **TOON (Token-Oriented Object Notation)** formatter plugin for Flutter that provides all the functionality of `dart:convert`'s JSON library but optimized for the TOON format.
+A Flutter plugin for Token-Oriented Object Notation (TOON) - a human-readable data serialization format.
+
+## Features
+
+- 🔄 **Bidirectional conversion**: JSON ↔ TOON with complete data integrity
+- 📝 **Human-readable format**: Easy to read and write
+- 🎯 **Type-safe**: Preserves data types during conversion
+- ⚡ **Lightweight**: Minimal overhead, maximum performance
+- 🛠️ **Flexible**: Configurable encoding options
+- 📱 **Cross-platform**: Works on iOS, Android, Web, Desktop
+- 🔧 **Advanced parsing**: Supports tabular arrays and complex nested structures
+- 📊 **Large datasets**: Efficient handling with configurable depth limits
 
 ## 🚀 Why Choose flutter_car_toon over toon_formatter?
 
@@ -51,7 +62,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_car_toon: ^0.1.1
+  flutter_car_toon: ^0.1.2
 ```
 
 Then run:
@@ -136,6 +147,11 @@ tags[3]: admin,ops,dev
 users[2]{name,age}:
   Alice,30
   Bob,25
+
+# Complex tabular arrays with mixed field types
+inventory[2]{make,model,year,features,price,available}:
+  Toyota,Camry,2020,[3]: Bluetooth,Backup Camera,Cruise Control,24999.99,true
+  Honda,Civic,2021,[4]: Bluetooth,Lane Keep Assist,Apple CarPlay,Sunroof,22500.00,false
 ```
 
 ### Nested Structures
@@ -175,6 +191,48 @@ final options = ToonOptions(
 );
 
 final codec = ToonCodec(options: options);
+```
+
+### Round-Trip Conversion Example
+
+The enhanced decoder in version 0.1.2+ supports complex tabular arrays with mixed field types and maintains complete data integrity:
+
+```dart
+// Complex nested data with tabular arrays
+final complexData = {
+  'dealership': 'Premium Motors',
+  'location': {
+    'city': 'Austin',
+    'state': 'TX',
+    'coordinates': [30.2672, -97.7431]
+  },
+  'inventory': [
+    {
+      'make': 'Toyota',
+      'model': 'Camry',
+      'year': 2020,
+      'features': ['Bluetooth', 'Backup Camera', 'Cruise Control'],
+      'price': 24999.99,
+      'available': true
+    },
+    {
+      'make': 'Honda',
+      'model': 'Civic',
+      'year': 2021,
+      'features': ['Bluetooth', 'Lane Keep Assist', 'Apple CarPlay', 'Sunroof'],
+      'price': 22500.00,
+      'available': false
+    }
+  ]
+};
+
+// Encode to TOON format
+final toonString = toon.encode(complexData);
+print(toonString);
+
+// Decode back to Dart objects
+final decoded = toon.decode(toonString);
+print('Data integrity preserved: ${decoded.toString() == complexData.toString()}');
 ```
 
 ### Validation

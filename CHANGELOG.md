@@ -1,3 +1,15 @@
+## 0.1.2
+
+- **CRITICAL BUG FIX** - Fixed `toon.decode()` tabular array format not working properly
+- **Enhanced ToonDecoder** - Complete rewrite with comprehensive parsing capabilities:
+  - Tabular arrays: `inventory[2]{make,model,year}:` format support
+  - Inline arrays within tabular data: `[3]: value1,value2,value3` parsing
+  - Proper 4-space indentation detection for nested structures
+  - Enhanced type detection for all primitives, numbers, booleans, arrays
+- **Round-trip Integrity** - JSON→TOON→JSON conversion now preserves complete data integrity
+- **Large Dataset Support** - Efficient handling with configurable depth limits (tested with 100+ nested items)
+- **Robust Parsing** - Improved handling of mixed data types in complex nested structures
+
 ## 0.1.1
 
 - **Documentation Enhancement** - Major README improvements with detailed comparison tables
