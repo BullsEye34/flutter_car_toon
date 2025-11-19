@@ -25,7 +25,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_car_toon: ^1.0.0
+  flutter_car_toon: ^0.1.0
 ```
 
 Then run:
@@ -335,13 +335,15 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 ## Links
 
 - 📦 [Pub.dev Package](https://pub.dev/packages/flutter_car_toon)
-- 🐙 [GitHub Repository](https://github.com/your_username/flutter_car_toon)
+- 🐙 [GitHub Repository](https://github.com/BullsEye34/flutter_car_toon)
 - 📖 [TOON Specification](https://toonformat.dev/)
 - 📚 [API Documentation](https://pub.dev/documentation/flutter_car_toon/latest/)
-- 🔧 [Issue Tracker](https://github.com/your_username/flutter_car_toon/issues)
+- 🔧 [Issue Tracker](https://github.com/BullsEye34/flutter_car_toon/issues)
 
 ## Credits
 
 - TOON format specification by the [TOON Format Team](https://toonformat.dev/)
 - Inspired by `dart:convert` and `json_serializable`
 - Built with ❤️ for the Flutter community
+
+> AI was used to write this
