@@ -200,7 +200,9 @@ class ToonDecoder extends convert.Converter<String, Object?> {
       if (pos >= line.length) break;
 
       // Skip whitespace
-      while (pos < line.length && line[pos] == ' ') pos++;
+      while (pos < line.length && line[pos] == ' ') {
+        pos++;
+      }
       if (pos >= line.length) break;
 
       // Check for inline array format [count]: value,value,value
@@ -215,7 +217,9 @@ class ToonDecoder extends convert.Converter<String, Object?> {
           pos = closeBracket + 2; // Skip ]:
 
           // Skip spaces after colon
-          while (pos < line.length && line[pos] == ' ') pos++;
+          while (pos < line.length && line[pos] == ' ') {
+            pos++;
+          }
 
           // Collect array values
           final arrayValues = <String>[];
@@ -230,7 +234,9 @@ class ToonDecoder extends convert.Converter<String, Object?> {
             if (value.isNotEmpty) arrayValues.add(value);
 
             if (pos < line.length && line[pos] == ',') pos++; // Skip comma
-            while (pos < line.length && line[pos] == ' ') pos++; // Skip spaces
+            while (pos < line.length && line[pos] == ' ') {
+              pos++; // Skip spaces
+            }
           }
 
           values.add('[${arrayValues.join(',')}]');
@@ -240,14 +246,18 @@ class ToonDecoder extends convert.Converter<String, Object?> {
         } else {
           // Regular value starting with [
           final start = pos;
-          while (pos < line.length && line[pos] != ',') pos++;
+          while (pos < line.length && line[pos] != ',') {
+            pos++;
+          }
           values.add(line.substring(start, pos).trim());
           if (pos < line.length && line[pos] == ',') pos++; // Skip comma
         }
       } else {
         // Regular value
         final start = pos;
-        while (pos < line.length && line[pos] != ',') pos++;
+        while (pos < line.length && line[pos] != ',') {
+          pos++;
+        }
         values.add(line.substring(start, pos).trim());
         if (pos < line.length && line[pos] == ',') pos++; // Skip comma
       }

@@ -1,3 +1,9 @@
+## 0.1.3
+
+- **Code Quality** - Fixed all linting issues for full pub.dev compliance
+- **Dart Style** - Added proper braces to single-line while statements in ToonDecoder
+- **Pub.dev Score** - Improved static analysis score from 40/50 to 50/50 points
+
 ## 0.1.2
 
 - **CRITICAL BUG FIX** - Fixed `toon.decode()` tabular array format not working properly
