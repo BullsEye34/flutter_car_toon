@@ -7,13 +7,13 @@ import 'package:plugin_platform_interface/plugin_platform_interface.dart';
 class MockFlutterCarToonPlatform
     with MockPlatformInterfaceMixin
     implements FlutterCarToonPlatform {
-
   @override
   Future<String?> getPlatformVersion() => Future.value('42');
 }
 
 void main() {
-  final FlutterCarToonPlatform initialPlatform = FlutterCarToonPlatform.instance;
+  final FlutterCarToonPlatform initialPlatform =
+      FlutterCarToonPlatform.instance;
 
   test('$MethodChannelFlutterCarToon is the default instance', () {
     expect(initialPlatform, isInstanceOf<MethodChannelFlutterCarToon>());

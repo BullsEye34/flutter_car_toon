@@ -1,5 +1,6 @@
 /// Tests for TOON codec functionality
 library;
+
 import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter_car_toon/flutter_car_toon.dart';
 
@@ -28,8 +29,8 @@ void main() {
       final data = {
         'user': {
           'name': 'Alice',
-          'profile': {'age': 30}
-        }
+          'profile': {'age': 30},
+        },
       };
       final result = codec.encode(data);
       expect(result, contains('user:'));
@@ -70,21 +71,21 @@ void main() {
 
     test('convenience methods', () {
       final data = {'test': 'value'};
-      
+
       // Test global convenience functions
       final encoded = toonEncode(data);
       final decoded = toonDecode(encoded);
-      
+
       expect(encoded, contains('test: value'));
       expect(decoded, equals(data));
     });
 
     test('toon class static methods', () {
       final data = {'name': 'Bob', 'score': 95};
-      
+
       final encoded = toon.encode(data);
       final decoded = toon.decode(encoded);
-      
+
       expect(encoded, isA<String>());
       expect(decoded, equals(data));
     });
@@ -92,13 +93,13 @@ void main() {
 
   group('ToonCodec Advanced Tests', () {
     test('encode with custom options', () {
-      final codec = ToonCodec(
-        options: ToonOptions.pretty,
-      );
-      
-      final data = {'nested': {'key': 'value'}};
+      final codec = ToonCodec(options: ToonOptions.pretty);
+
+      final data = {
+        'nested': {'key': 'value'},
+      };
       final result = codec.encode(data);
-      
+
       // Should use 4-space indentation
       expect(result, contains('    key: value'));
     });
@@ -109,12 +110,12 @@ void main() {
           {'name': 'Alice', 'age': 30},
           {'name': 'Bob', 'age': 25},
         ],
-        'meta': {'count': 2, 'active': true}
+        'meta': {'count': 2, 'active': true},
       };
 
       final codec = const ToonCodec();
       final encoded = codec.encode(originalData);
-      
+
       // For now, just test that encoding works
       expect(encoded, isA<String>());
       expect(encoded, isNotEmpty);
@@ -138,7 +139,7 @@ void main() {
     test('copyWith functionality', () {
       const original = ToonOptions.defaults;
       final modified = original.copyWith(indent: 4, strictMode: true);
-      
+
       expect(modified.indent, equals(4));
       expect(modified.strictMode, isTrue);
       expect(modified.delimiter, equals(original.delimiter)); // unchanged
@@ -148,7 +149,7 @@ void main() {
   group('Error Handling Tests', () {
     test('encoding unsupported objects throws error', () {
       final codec = const ToonCodec();
-      
+
       expect(
         () => codec.encode(DateTime.now()),
         throwsA(isA<ToonEncodingError>()),
@@ -173,9 +174,9 @@ void main() {
     test('can register custom converter', () {
       final registry = ToonConverterRegistry();
       const converter = StringToonConverter();
-      
+
       registry.register<String>(converter);
-      
+
       final retrievedConverter = registry.getConverterForType(String);
       expect(retrievedConverter, isA<StringToonConverter>());
     });
