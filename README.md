@@ -14,6 +14,7 @@ A Flutter plugin for Token-Oriented Object Notation (TOON) - a human-readable da
 - 📱 **Cross-platform**: Works on iOS, Android, Web, Desktop
 - 🔧 **Advanced parsing**: Supports tabular arrays and complex nested structures
 - 📊 **Large datasets**: Efficient handling with configurable depth limits
+- 🚀 **Swift Package Manager**: Early adopter with full SPM support for modern iOS/macOS development
 
 ## 🚀 Why Choose flutter_car_toon over toon_formatter?
 
@@ -32,6 +33,7 @@ While [`toon_formatter`](https://pub.dev/packages/toon_formater) provides basic 
 | **🔍 Testing**        | 88 comprehensive tests                            | Limited test coverage     |
 | **📖 Documentation**  | Complete API docs & examples                      | Basic documentation       |
 | **🛠️ Tooling**        | Rich API (CLI tools planned)                      | No additional tools       |
+| **🚀 SPM Support**    | ✅ Early adopter (iOS/macOS)                      | ❌ CocoaPods only         |
 
 ### 💡 **Unique Features**
 
@@ -70,6 +72,27 @@ Then run:
 ```bash
 flutter pub get
 ```
+
+## 🚀 Swift Package Manager Support
+
+**flutter_car_toon** is one of the early Flutter packages to adopt Swift Package Manager! As Flutter transitions from CocoaPods to SPM, we're ready for the future.
+
+### Why This Matters
+
+- ✅ **Modern dependency management** for iOS/macOS
+- ✅ **No Ruby/CocoaPods installation required** (in the future)
+- ✅ **Access to Swift package ecosystem**
+- ✅ **Dual support**: Works with both SPM and CocoaPods
+- ✅ **Future-proof**: Ready for Flutter 3.24+ projects
+
+### Platform Support
+
+| Platform | CocoaPods | Swift Package Manager |
+|----------|-----------|----------------------|
+| iOS 13.0+ | ✅ | ✅ |
+| macOS 10.15+ | ✅ | ✅ |
+
+**Note**: Swift Package Manager support is currently opt-in and under active development by the Flutter team. This package supports both dependency management systems to ensure compatibility with all Flutter projects.
 
 ## Quick Start
 
