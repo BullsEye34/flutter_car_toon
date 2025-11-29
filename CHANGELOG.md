@@ -1,24 +1,47 @@
 # Changelog
 
+## [0.1.5] - 2024-11-29
+
+### Added
+- ✨ **Swift Package Manager Support** - Full implementation for modern iOS/macOS dependency management
+  - Created Package.swift files for both iOS and macOS platforms
+  - Proper directory structure: `ios/flutter_car_toon/` and `macos/flutter_car_toon/`
+  - Migrated Swift source files to SPM-compatible locations
+  - Privacy manifests configured and integrated
+  - Dual support: Works with both CocoaPods and Swift Package Manager
+
+### Changed
+- Updated podspec files with proper metadata (license type, description, git source)
+- Synchronized podspec versions with pub package version
+- Updated macOS minimum deployment target to 10.15 (matching Package.swift requirements)
+
+### Fixed
+- Resolved all CocoaPods validation warnings
+- Fixed podspec source paths to point to new Swift Package Manager structure
+
 ## [0.1.4] - 2024-11-24
 
 ### Fixed
+
 - Fixed Dart formatting issues across multiple files
 - Resolved formatting problems in flutter_car_toon_method_channel.dart and big_int_converter.dart
 - Achieved full compliance with Dart formatter for perfect pub.dev static analysis score
 
 ### Changed
+
 - Applied consistent Dart formatting across entire codebase
 - Enhanced code presentation and readability
 
 ## [0.1.3] - 2024-11-24
 
 ### Fixed
+
 - Fixed curly_braces_in_flow_control_structures linting violations in ToonDecoder
 - Added proper braces to single-line while statements for improved code quality
 - Achieved zero linting errors to improve pub.dev static analysis score
 
 ### Changed
+
 - Enhanced code style compliance while maintaining all functionality
 - Updated documentation to reflect latest version
 
