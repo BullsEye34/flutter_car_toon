@@ -4,7 +4,7 @@
 
 **Flutter CarToon** is a comprehensive TOON (Token-Oriented Object Notation) formatter plugin for Flutter that provides all the functionality of `dart:convert`'s JSON library but optimized for the TOON format.
 
-**Current Status**: Version 0.1.5 prepared for publication with Swift Package Manager support (November 29, 2025) - Version 0.1.4 successfully published to pub.dev (November 24, 2025)
+**Current Status**: Version 0.1.6 prepared for publication with enhanced SPM documentation (November 29, 2025) - Version 0.1.5 successfully published to pub.dev (November 29, 2025)
 
 ### What is TOON?
 

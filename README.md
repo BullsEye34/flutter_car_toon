@@ -87,10 +87,10 @@ flutter pub get
 
 ### Platform Support
 
-| Platform | CocoaPods | Swift Package Manager |
-|----------|-----------|----------------------|
-| iOS 13.0+ | ✅ | ✅ |
-| macOS 10.15+ | ✅ | ✅ |
+| Platform     | CocoaPods | Swift Package Manager |
+| ------------ | --------- | --------------------- |
+| iOS 13.0+    | ✅        | ✅                    |
+| macOS 10.15+ | ✅        | ✅                    |
 
 **Note**: Swift Package Manager support is currently opt-in and under active development by the Flutter team. This package supports both dependency management systems to ensure compatibility with all Flutter projects.
 

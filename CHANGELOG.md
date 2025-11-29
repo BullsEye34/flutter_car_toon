@@ -1,8 +1,22 @@
 # Changelog
 
+## [0.1.6] - 2024-11-29
+
+### Changed
+- 📚 **Documentation Enhancement** - Prominently highlighted Swift Package Manager early adoption
+  - Added dedicated SPM section in README showcasing benefits and platform support
+  - Featured SPM support in comparison table as key differentiator
+  - Emphasized dual CocoaPods/SPM compatibility for maximum flexibility
+  - Positioned package as future-ready for Flutter 3.24+ projects
+
+### Marketing
+- Showcased early adopter status of Flutter's modern iOS/macOS dependency management
+- Enhanced package visibility for developers seeking future-proof solutions
+
 ## [0.1.5] - 2024-11-29
 
 ### Added
+
 - ✨ **Swift Package Manager Support** - Full implementation for modern iOS/macOS dependency management
   - Created Package.swift files for both iOS and macOS platforms
   - Proper directory structure: `ios/flutter_car_toon/` and `macos/flutter_car_toon/`
@@ -11,11 +25,13 @@
   - Dual support: Works with both CocoaPods and Swift Package Manager
 
 ### Changed
+
 - Updated podspec files with proper metadata (license type, description, git source)
 - Synchronized podspec versions with pub package version
 - Updated macOS minimum deployment target to 10.15 (matching Package.swift requirements)
 
 ### Fixed
+
 - Resolved all CocoaPods validation warnings
 - Fixed podspec source paths to point to new Swift Package Manager structure
 
