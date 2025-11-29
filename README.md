@@ -45,7 +45,7 @@ While [`toon_formatter`](https://pub.dev/packages/toon_formater) provides basic 
 
 > **Acknowledgments**: This project is highly inspired by the [`toon_formatter`](https://pub.dev/packages/toon_formater) package and follows the architectural patterns established by Dart's [`dart:convert`](https://api.dart.dev/stable/dart-convert/dart-convert-library.html) library to ensure familiar and consistent usage patterns.
 
-[![pub package](https://img.shields.io/badge/pub-v1.0.0-blue)](https://pub.dev/packages/flutter_car_toon)
+[![pub package](https://img.shields.io/badge/pub-v0.1.6-blue)](https://pub.dev/packages/flutter_car_toon)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## What is TOON?
