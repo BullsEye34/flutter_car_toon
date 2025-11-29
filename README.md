@@ -64,7 +64,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_car_toon: ^0.1.4
+  flutter_car_toon: ^0.1.6
 ```
 
 Then run:
