@@ -30,7 +30,7 @@ While [`toon_formatter`](https://pub.dev/packages/toon_formater) provides basic 
 | **🔧 Extensibility**  | Custom type converters & plugins                  | Limited customization     |
 | **⚡ Performance**    | Multiple optimization strategies                  | Basic implementation      |
 | **📚 API Design**     | Mirrors `dart:convert` patterns                   | Simple encode/decode only |
-| **🔍 Testing**        | 103 comprehensive tests                           | Limited test coverage     |
+| **🔍 Testing**        | 159 comprehensive tests                           | Limited test coverage     |
 | **📖 Documentation**  | Complete API docs & examples                      | Basic documentation       |
 | **🛠️ Tooling**        | ✅ CLI tools (format, validate, convert, minify)  | No additional tools       |
 | **🚀 SPM Support**    | ✅ Early adopter (iOS/macOS)                      | ❌ CocoaPods only         |
@@ -40,7 +40,7 @@ While [`toon_formatter`](https://pub.dev/packages/toon_formater) provides basic 
 - **Production-ready**: Comprehensive error handling with detailed context
 - **Developer-friendly**: Familiar `dart:convert` API patterns (exact same interface)
 - **Extensible**: Built-in converters for DateTime, Duration, BigInt, URI types
-- **Well-tested**: 103 comprehensive tests ensure reliability
+- **Well-tested**: 159 comprehensive tests ensure reliability
 - **Performance-focused**: Multiple optimization strategies for different use cases
 
 > **Acknowledgments**: This project is highly inspired by the [`toon_formatter`](https://pub.dev/packages/toon_formater) package and follows the architectural patterns established by Dart's [`dart:convert`](https://api.dart.dev/stable/dart-convert/dart-convert-library.html) library to ensure familiar and consistent usage patterns.
@@ -64,7 +64,7 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_car_toon: ^0.2.0
+  flutter_car_toon: ^0.3.0
 ```
 
 For code generation support, also add:
@@ -526,11 +526,13 @@ dart run build_runner watch
 ### Installation
 
 Activate globally:
+
 ```bash
 dart pub global activate flutter_car_toon
 ```
 
 Or run directly from your project:
+
 ```bash
 dart run flutter_car_toon:toon <command>
 ```
@@ -538,12 +540,15 @@ dart run flutter_car_toon:toon <command>
 ### Available Commands
 
 #### Format
+
 Format and prettify TOON files:
+
 ```bash
 toon format [--indent 2] [--check] [--write] [--output file] <file>
 ```
 
 Examples:
+
 ```bash
 # Format to stdout
 toon format data.toon
@@ -559,12 +564,15 @@ toon format --indent 4 --write data.toon
 ```
 
 #### Validate
+
 Validate TOON syntax and structure:
+
 ```bash
 toon validate [--strict] [--verbose] <file>
 ```
 
 Examples:
+
 ```bash
 # Basic validation
 toon validate data.toon
@@ -574,12 +582,15 @@ toon validate --strict --verbose data.toon
 ```
 
 #### Convert
+
 Convert between JSON and TOON formats:
+
 ```bash
 toon convert --from <json|toon> --to <json|toon> [--pretty] [--output file] <file>
 ```
 
 Examples:
+
 ```bash
 # JSON to TOON
 toon convert --from json --to toon data.json
@@ -592,12 +603,15 @@ toon convert --from json --to toon --output data.toon input.json
 ```
 
 #### Minify
+
 Minify TOON files for compact output:
+
 ```bash
 toon minify [--output file] <file>
 ```
 
 Examples:
+
 ```bash
 # Minify to stdout
 toon minify data.toon
@@ -609,6 +623,7 @@ toon minify --output data.min.toon data.toon
 ### Example Files
 
 The package includes example TOON files in the `examples/` directory:
+
 - `simple.toon` - Basic key-value pairs
 - `complex.toon` - Nested objects with tabular arrays
 - `nested.toon` - Deep nesting examples
@@ -618,6 +633,7 @@ The package includes example TOON files in the `examples/` directory:
 ### Full Documentation
 
 See [CLI.md](CLI.md) for complete documentation including:
+
 - Detailed command reference
 - CI/CD integration examples
 - Pre-commit hook setup
@@ -657,20 +673,20 @@ See [CLI.md](CLI.md) for complete documentation including:
 
 ## 📊 Detailed Comparison with Existing Packages
 
-| Feature                      | flutter_car_toon            | toon_formatter | Advantages                                          |
-| ---------------------------- | --------------------------- | -------------- | --------------------------------------------------- |
-| **Basic encode/decode**      | ✅ Full API                 | ✅ Basic       | Complete `dart:convert` compatibility               |
-| **Custom options**           | ✅ 12 comprehensive options | ✅ Limited     | Extensive configuration system                      |
-| **Error handling**           | ✅ 6 error types            | ❌ Basic       | Detailed context, suggestions, source excerpts      |
-| **Validation**               | ✅ Validation framework     | ❌ None        | Built-in validation system                          |
-| **Streaming**                | ✅ Basic streaming API      | ❌ None        | Foundation for large dataset processing             |
-| **Type converters**          | ✅ Extensible system        | ❌ Limited     | DateTime, Duration, custom types                    |
-| **Performance optimization** | ✅ Multiple strategies      | ❌ Basic       | Compact, pretty, performance modes                  |
-| **Test coverage**            | ✅ 103 comprehensive        | ❌ Limited     | Production-ready reliability (88 core + 15 codegen) |
-| **Documentation**            | ✅ Complete API docs        | ❌ Basic       | Examples, guides, API reference                     |
-| **Code generation**          | ✅ Available v0.2.0         | ✅ Available   | Supports @ToonSerializable with nested objects      |
-| **CLI tools**                | ✅ Available v0.3.0         | ❌ None        | Format, validate, convert, minify                   |
-| **Platform support**         | ✅ All platforms            | ✅ All         | Flutter Web, Desktop, Mobile                        |
+| Feature                      | flutter_car_toon            | toon_formatter | Advantages                                       |
+| ---------------------------- | --------------------------- | -------------- | ------------------------------------------------ |
+| **Basic encode/decode**      | ✅ Full API                 | ✅ Basic       | Complete `dart:convert` compatibility            |
+| **Custom options**           | ✅ 12 comprehensive options | ✅ Limited     | Extensive configuration system                   |
+| **Error handling**           | ✅ 6 error types            | ❌ Basic       | Detailed context, suggestions, source excerpts   |
+| **Validation**               | ✅ Validation framework     | ❌ None        | Built-in validation system                       |
+| **Streaming**                | ✅ Basic streaming API      | ❌ None        | Foundation for large dataset processing          |
+| **Type converters**          | ✅ Extensible system        | ❌ Limited     | DateTime, Duration, custom types                 |
+| **Performance optimization** | ✅ Multiple strategies      | ❌ Basic       | Compact, pretty, performance modes               |
+| **Test coverage**            | ✅ 159 comprehensive        | ❌ Limited     | Production-ready (88 core + 15 codegen + 56 CLI) |
+| **Documentation**            | ✅ Complete API docs        | ❌ Basic       | Examples, guides, API reference                  |
+| **Code generation**          | ✅ Available v0.2.0         | ✅ Available   | Supports @ToonSerializable with nested objects   |
+| **CLI tools**                | ✅ Available v0.3.0         | ❌ None        | Format, validate, convert, minify                |
+| **Platform support**         | ✅ All platforms            | ✅ All         | Flutter Web, Desktop, Mobile                     |
 
 ### 🎯 **Migration Benefits**
 
@@ -718,6 +734,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Inspired by `dart:convert` and `json_serializable`
 - Enhanced beyond `toon_formatter` with enterprise features
 - Built with ❤️ for the Flutter community
-- **103 tests** ensure production reliability (88 core + 15 code generation)
+- **159 tests** ensure production reliability (88 core + 15 codegen + 56 CLI)
 
 > AI was used to write this comprehensive implementation

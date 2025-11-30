@@ -23,11 +23,13 @@ dart run flutter_car_toon:toon <command>
 Format and prettify TOON files with consistent indentation and spacing.
 
 **Usage:**
+
 ```bash
 toon format [options] <file>
 ```
 
 **Options:**
+
 - `-i, --indent <num>` - Number of spaces for indentation (default: 2)
 - `-c, --check` - Check if file is already formatted (exit 0 if formatted, 1 if not)
 - `-w, --write` - Write formatted output back to the file
@@ -36,21 +38,25 @@ toon format [options] <file>
 **Examples:**
 
 Format and print to stdout:
+
 ```bash
 toon format example.toon
 ```
 
 Check if a file is properly formatted:
+
 ```bash
 toon format --check example.toon
 ```
 
 Format with 4-space indentation:
+
 ```bash
 toon format --indent 4 --write example.toon
 ```
 
 Format to a new file:
+
 ```bash
 toon format --output formatted.toon example.toon
 ```
@@ -60,27 +66,32 @@ toon format --output formatted.toon example.toon
 Validate TOON syntax and structure to ensure correctness.
 
 **Usage:**
+
 ```bash
 toon validate [options] <file>
 ```
 
 **Options:**
+
 - `-s, --strict` - Use strict validation mode (enforces TOON specification strictly)
 - `-v, --verbose` - Show detailed error messages with context
 
 **Examples:**
 
 Basic validation:
+
 ```bash
 toon validate data.toon
 ```
 
 Strict validation with verbose output:
+
 ```bash
 toon validate --strict --verbose data.toon
 ```
 
 **Output:**
+
 - Exit code 0: File is valid
 - Exit code 1: Validation errors found
 - Displays error severity, message, location, and context
@@ -90,36 +101,43 @@ toon validate --strict --verbose data.toon
 Convert between JSON and TOON formats bidirectionally.
 
 **Usage:**
+
 ```bash
 toon convert --from <format> --to <format> [options] <file>
 ```
 
 **Required Options:**
+
 - `-f, --from <format>` - Source format: `json` or `toon`
 - `-t, --to <format>` - Target format: `json` or `toon`
 
 **Optional:**
+
 - `-o, --output <file>` - Write output to specified file
 - `-p, --pretty` - Pretty print output (formatted with indentation)
 
 **Examples:**
 
 Convert JSON to TOON:
+
 ```bash
 toon convert --from json --to toon data.json
 ```
 
 Convert TOON to JSON with pretty printing:
+
 ```bash
 toon convert --from toon --to json --pretty data.toon
 ```
 
 Convert and save to file:
+
 ```bash
 toon convert --from json --to toon --output data.toon input.json
 ```
 
 Round-trip conversion (JSON → TOON → JSON):
+
 ```bash
 toon convert --from json --to toon --output temp.toon data.json
 toon convert --from toon --to json --output result.json temp.toon
@@ -130,21 +148,25 @@ toon convert --from toon --to json --output result.json temp.toon
 Minify TOON files for compact output and reduced file size.
 
 **Usage:**
+
 ```bash
 toon minify [options] <file>
 ```
 
 **Options:**
+
 - `-o, --output <file>` - Write output to specified file
 
 **Examples:**
 
 Minify and print to stdout:
+
 ```bash
 toon minify data.toon
 ```
 
 Minify and save to file (shows size comparison):
+
 ```bash
 toon minify --output data.min.toon data.toon
 ```
@@ -160,6 +182,7 @@ Available for all commands:
 - `-v, --version` - Display CLI version
 
 **Examples:**
+
 ```bash
 toon --version
 toon --help
@@ -225,17 +248,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      
+
       - name: Setup Dart
         uses: dart-lang/setup-dart@v1
-      
+
       - name: Activate TOON CLI
         run: dart pub global activate flutter_car_toon
-      
+
       - name: Validate TOON files
         run: |
           find . -name "*.toon" -exec toon validate --strict {} \;
-      
+
       - name: Check formatting
         run: |
           find . -name "*.toon" -exec toon format --check {} \;
@@ -258,7 +281,7 @@ if [ -n "$toon_files" ]; then
       echo "❌ Validation failed: $file"
       exit 1
     fi
-    
+
     # Format
     if ! toon format --check "$file"; then
       echo "Formatting: $file"
@@ -306,6 +329,7 @@ dart run flutter_car_toon:toon minify examples/nested.toon
 ## Troubleshooting
 
 ### CLI Not Found
+
 ```bash
 # Make sure you've activated the package globally
 dart pub global activate flutter_car_toon
@@ -315,12 +339,14 @@ dart run flutter_car_toon:toon --version
 ```
 
 ### Permission Denied
+
 ```bash
 # Make the CLI executable (Unix/macOS)
 chmod +x bin/toon.dart
 ```
 
 ### Validation Errors
+
 ```bash
 # Use verbose mode to see detailed context
 toon validate --verbose --strict problematic.toon
