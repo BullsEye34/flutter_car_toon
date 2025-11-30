@@ -9,10 +9,10 @@ class User {
   final int age;
   final String email;
   final bool isActive;
-  
+
   @ToonField(name: 'tags_list')
   final List<String>? tags;
-  
+
   @ToonField(includeIfNull: false)
   final String? bio;
 

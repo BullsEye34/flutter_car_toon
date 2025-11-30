@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.2.2] - 2024-11-30
+
+### Fixed
+
+- Fixed Dart formatting issues for pub.dev validation
+- Added missing generated .toon.dart files to repository
+
 ## [0.2.1] - 2024-11-30
 
 ### Updated
