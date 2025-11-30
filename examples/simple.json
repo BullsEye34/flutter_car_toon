@@ -1,0 +1,15 @@
+{
+  "name": "Alice Johnson",
+  "age": 30,
+  "email": "alice.johnson@example.com",
+  "active": true,
+  "tags": ["developer", "flutter", "dart"],
+  "profile": {
+    "bio": "Software engineer with 5 years of experience",
+    "website": "https://alice.dev",
+    "social": {
+      "twitter": "@alice_dev",
+      "github": "alice"
+    }
+  }
+}

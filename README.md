@@ -32,7 +32,7 @@ While [`toon_formatter`](https://pub.dev/packages/toon_formater) provides basic 
 | **📚 API Design**     | Mirrors `dart:convert` patterns                   | Simple encode/decode only |
 | **🔍 Testing**        | 103 comprehensive tests                           | Limited test coverage     |
 | **📖 Documentation**  | Complete API docs & examples                      | Basic documentation       |
-| **🛠️ Tooling**        | Rich API (CLI tools planned)                      | No additional tools       |
+| **🛠️ Tooling**        | ✅ CLI tools (format, validate, convert, minify)  | No additional tools       |
 | **🚀 SPM Support**    | ✅ Early adopter (iOS/macOS)                      | ❌ CocoaPods only         |
 
 ### 💡 **Unique Features**
@@ -45,7 +45,7 @@ While [`toon_formatter`](https://pub.dev/packages/toon_formater) provides basic 
 
 > **Acknowledgments**: This project is highly inspired by the [`toon_formatter`](https://pub.dev/packages/toon_formater) package and follows the architectural patterns established by Dart's [`dart:convert`](https://api.dart.dev/stable/dart-convert/dart-convert-library.html) library to ensure familiar and consistent usage patterns.
 
-[![pub package](https://img.shields.io/badge/pub-v0.2.0-blue)](https://pub.dev/packages/flutter_car_toon)
+[![pub package](https://img.shields.io/badge/pub-v0.3.0-blue)](https://pub.dev/packages/flutter_car_toon)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## What is TOON?
@@ -372,7 +372,7 @@ Based on benchmarks against JSON:
 
 ## Annotations (Code Generation)
 
-**NEW in v0.2.0!** Automatic code generation for TOON serialization:
+**Available since v0.2.0!** Automatic code generation for TOON serialization:
 
 ### Setup
 
@@ -380,7 +380,7 @@ Based on benchmarks against JSON:
 
 ```yaml
 dependencies:
-  flutter_car_toon: ^0.2.0
+  flutter_car_toon: ^0.3.0
 
 dev_dependencies:
   build_runner: ^2.4.0
@@ -519,6 +519,111 @@ For automatic regeneration during development:
 dart run build_runner watch
 ```
 
+## CLI Tools
+
+**Available in v0.3.0!** Command-line tools for TOON format operations.
+
+### Installation
+
+Activate globally:
+```bash
+dart pub global activate flutter_car_toon
+```
+
+Or run directly from your project:
+```bash
+dart run flutter_car_toon:toon <command>
+```
+
+### Available Commands
+
+#### Format
+Format and prettify TOON files:
+```bash
+toon format [--indent 2] [--check] [--write] [--output file] <file>
+```
+
+Examples:
+```bash
+# Format to stdout
+toon format data.toon
+
+# Check if formatted
+toon format --check data.toon
+
+# Format in place
+toon format --write data.toon
+
+# Custom indentation
+toon format --indent 4 --write data.toon
+```
+
+#### Validate
+Validate TOON syntax and structure:
+```bash
+toon validate [--strict] [--verbose] <file>
+```
+
+Examples:
+```bash
+# Basic validation
+toon validate data.toon
+
+# Strict mode with details
+toon validate --strict --verbose data.toon
+```
+
+#### Convert
+Convert between JSON and TOON formats:
+```bash
+toon convert --from <json|toon> --to <json|toon> [--pretty] [--output file] <file>
+```
+
+Examples:
+```bash
+# JSON to TOON
+toon convert --from json --to toon data.json
+
+# TOON to JSON (pretty)
+toon convert --from toon --to json --pretty data.toon
+
+# Save to file
+toon convert --from json --to toon --output data.toon input.json
+```
+
+#### Minify
+Minify TOON files for compact output:
+```bash
+toon minify [--output file] <file>
+```
+
+Examples:
+```bash
+# Minify to stdout
+toon minify data.toon
+
+# Save minified version
+toon minify --output data.min.toon data.toon
+```
+
+### Example Files
+
+The package includes example TOON files in the `examples/` directory:
+- `simple.toon` - Basic key-value pairs
+- `complex.toon` - Nested objects with tabular arrays
+- `nested.toon` - Deep nesting examples
+- `arrays.toon` - Various array formats
+- `simple.json` - JSON for conversion testing
+
+### Full Documentation
+
+See [CLI.md](CLI.md) for complete documentation including:
+- Detailed command reference
+- CI/CD integration examples
+- Pre-commit hook setup
+- Batch processing workflows
+- Troubleshooting guide
+
 ## API Reference
 
 ### Core Classes
@@ -564,7 +669,7 @@ dart run build_runner watch
 | **Test coverage**            | ✅ 103 comprehensive        | ❌ Limited     | Production-ready reliability (88 core + 15 codegen) |
 | **Documentation**            | ✅ Complete API docs        | ❌ Basic       | Examples, guides, API reference                     |
 | **Code generation**          | ✅ Available v0.2.0         | ✅ Available   | Supports @ToonSerializable with nested objects      |
-| **CLI tools**                | 🚧 Planned v0.3.0           | ❌ None        | Format validation, conversion tools                 |
+| **CLI tools**                | ✅ Available v0.3.0         | ❌ None        | Format, validate, convert, minify                   |
 | **Platform support**         | ✅ All platforms            | ✅ All         | Flutter Web, Desktop, Mobile                        |
 
 ### 🎯 **Migration Benefits**

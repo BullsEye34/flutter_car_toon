@@ -1,5 +1,44 @@
 # Changelog
 
+## [0.3.0] - 2024-11-30
+
+### Added
+
+- 🚀 **CLI Tools** - Comprehensive command-line interface for TOON format operations
+  - `format` - Format and prettify TOON files with customizable indentation
+  - `validate` - Validate TOON syntax with strict mode and verbose error reporting
+  - `convert` - Bidirectional conversion between JSON and TOON formats
+  - `minify` - Minify TOON files for compact output with size comparison
+  - Global `--help` and `--version` flags
+  - Detailed error messages with context and suggestions
+  - Support for stdin/stdout and file I/O operations
+  - Example TOON files for testing CLI functionality
+- **CLI Documentation** - Complete CLI.md guide with:
+  - Installation instructions
+  - Command reference with all options
+  - Common workflows (batch operations, CI/CD integration, pre-commit hooks)
+  - Examples directory with sample files
+  - Troubleshooting guide
+- **CLI Tests** - 15 comprehensive test suites (103 total tests):
+  - Version and help command tests
+  - Format command with check, write, and output options
+  - Validate command with strict and verbose modes
+  - Convert command for JSON ↔ TOON conversion
+  - Minify command with size reporting
+  - Error handling and edge cases
+  - Integration tests for multi-command pipelines
+
+### Changed
+
+- Updated README with CLI tools marked as ✅ available in comparison table
+- Added `args: ^2.6.0` dependency for command-line argument parsing
+- Added `executables` section to pubspec.yaml for global CLI activation
+- Updated documentation to reflect completed v0.3.0 milestone
+
+### Dependencies
+
+- Added `args: ^2.6.0` for CLI argument parsing
+
 ## [0.2.2] - 2024-11-30
 
 ### Fixed

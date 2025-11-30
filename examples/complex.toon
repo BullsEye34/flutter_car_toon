@@ -1,0 +1,16 @@
+dealership: Premium Auto Sales
+location:
+  street: 123 Main St
+  city: Austin
+  state: TX
+  zip: 78701
+  coordinates[2]: 30.2672,-97.7431
+inventory[3]{make,model,year,price,features,available}:
+  Toyota,Camry,2020,24999.99,[3]: Bluetooth,Backup Camera,Cruise Control,true
+  Honda,Civic,2021,22500.00,[4]: Bluetooth,Lane Assist,Apple CarPlay,Sunroof,false
+  Ford,F-150,2022,35000.00,[5]: 4WD,Towing Package,Backup Camera,Bluetooth,Bed Liner,true
+manager:
+  name: John Smith
+  email: john.smith@premiumauto.com
+  phone: 555-0123
+  hired: 2015-03-15

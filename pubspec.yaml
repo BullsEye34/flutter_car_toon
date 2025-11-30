@@ -1,6 +1,6 @@
 name: flutter_car_toon
 description: "A comprehensive TOON (Token-Oriented Object Notation) formatter plugin for Flutter/Dart with all the functionality of dart:convert's JSON library but for TOON format."
-version: 0.2.2
+version: 0.3.0
 homepage: https://github.com/BullsEye34/flutter_car_toon
 repository: https://github.com/BullsEye34/flutter_car_toon
 documentation: https://github.com/BullsEye34/flutter_car_toon/wiki
@@ -21,6 +21,7 @@ dependencies:
   source_gen: ^4.1.1
   build: ^4.0.3
   analyzer: ^9.0.0
+  args: ^2.6.0
 
 dev_dependencies:
   flutter_test:
@@ -28,6 +29,10 @@ dev_dependencies:
   flutter_lints: ^6.0.0
   mockito: ^5.4.4
   build_runner: ^2.4.10
+
+# CLI executable
+executables:
+  toon:
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

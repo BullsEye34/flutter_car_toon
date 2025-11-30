@@ -1,0 +1,16 @@
+primitives[5]: one,two,three,four,five
+numbers[4]: 1,2,3,4
+booleans[3]: true,false,true
+mixed_list[3]:
+  - First item
+  - Second item
+  - Third item
+users[3]{name,age,active}:
+  Alice,30,true
+  Bob,25,false
+  Carol,28,true
+nested_objects[2]:
+  - id: 1
+    data: First
+  - id: 2
+    data: Second

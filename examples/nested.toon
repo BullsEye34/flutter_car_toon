@@ -1,0 +1,24 @@
+project: Flutter CarToon
+version: 0.3.0
+description: TOON format implementation with CLI tools
+team:
+  lead:
+    name: Alice
+    role: Technical Lead
+    skills[4]: dart,flutter,architecture,testing
+  developers[2]{name,role,experience}:
+    Bob,Senior Developer,5
+    Carol,Junior Developer,2
+  designers[1]{name,specialization}:
+    Dave,UI/UX
+features[5]:
+  - Core TOON encoding/decoding
+  - Code generation with annotations
+  - CLI tools for format conversion
+  - Comprehensive error handling
+  - Performance optimizations
+metadata:
+  created: 2024-01-15
+  updated: 2024-11-30
+  license: MIT
+  status: active
