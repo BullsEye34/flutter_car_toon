@@ -23,7 +23,7 @@ class ToonGenerator extends GeneratorForAnnotation<ToonSerializable> {
       );
     }
 
-    final className = element.name;
+    final className = element.name!;
     final createFactory =
         annotation.read('createFactory').literalValue as bool? ?? true;
     final createToToon =
@@ -96,7 +96,7 @@ class ToonGenerator extends GeneratorForAnnotation<ToonSerializable> {
 
   /// Serialize a field based on its type
   String _serializeField(FieldElement field, bool explicitToToon) {
-    final fieldName = field.name;
+    final fieldName = field.name!;
     final fieldType = field.type;
 
     // Check for custom converter
@@ -122,7 +122,7 @@ class ToonGenerator extends GeneratorForAnnotation<ToonSerializable> {
 
     // Handle primitives
     if (_isPrimitive(fieldType)) {
-      return field.name;
+      return fieldName;
     }
 
     // Handle nested objects - always call toToon() for non-primitives
@@ -141,12 +141,25 @@ class ToonGenerator extends GeneratorForAnnotation<ToonSerializable> {
     );
 
     // Find constructor
+    // In analyzer 8.x, the default constructor has name == 'new'
+    // In analyzer 6.x and earlier, it was '' (empty string)
     final constructor = element.constructors.firstWhere(
-      (c) => c.name.isEmpty,
-      orElse: () => throw InvalidGenerationSource(
-        'No default constructor found for $className',
-        element: element,
-      ),
+      (c) {
+        final constructorName = c.name;
+        // Default constructor in analyzer 8.x: name is 'new'
+        // Default constructor in analyzer <8.x: name is '' or null
+        return constructorName == 'new' ||
+            constructorName == '' ||
+            constructorName == null ||
+            constructorName.isEmpty;
+      },
+      orElse: () {
+        final names = element.constructors.map((c) => "'${c.name}'").join(', ');
+        throw InvalidGenerationSource(
+          'No default constructor found for $className. Available constructors: $names',
+          element: element,
+        );
+      },
     );
 
     buffer.write('  return $className(');
@@ -154,8 +167,8 @@ class ToonGenerator extends GeneratorForAnnotation<ToonSerializable> {
     final positionalArgs = <String>[];
     final namedArgs = <String>[];
 
-    for (final param in constructor.parameters) {
-      final fieldName = param.name;
+    for (final param in constructor.formalParameters) {
+      final fieldName = param.name!;
       final field = element.fields.firstWhere(
         (f) => f.name == fieldName,
         orElse: () => throw InvalidGenerationSource(
@@ -169,7 +182,7 @@ class ToonGenerator extends GeneratorForAnnotation<ToonSerializable> {
         continue;
       }
 
-      final toonName = fieldAnnotation?['name'] as String? ?? fieldName;
+      final toonName = (fieldAnnotation?['name'] as String?) ?? fieldName;
       final deserializedValue = _deserializeField(field, toonName);
 
       if (param.isNamed) {
@@ -206,7 +219,7 @@ class ToonGenerator extends GeneratorForAnnotation<ToonSerializable> {
 
     // Handle primitives
     if (_isPrimitive(fieldType)) {
-      return 'toon[\'$toonName\'] as ${fieldType.getDisplayString(withNullability: true)}';
+      return 'toon[\'$toonName\'] as ${fieldType.getDisplayString()}';
     }
 
     // Handle collections
@@ -214,14 +227,14 @@ class ToonGenerator extends GeneratorForAnnotation<ToonSerializable> {
       final elementType = (fieldType as InterfaceType).typeArguments.first;
       if (_isPrimitive(elementType)) {
         final castCode =
-            '(toon[\'$toonName\'] as List).cast<${elementType.getDisplayString(withNullability: true)}>()';
+            '(toon[\'$toonName\'] as List).cast<${elementType.getDisplayString()}>()';
         if (fieldType.nullabilitySuffix == NullabilitySuffix.question) {
           return 'toon[\'$toonName\'] == null ? null : $castCode';
         }
         return castCode;
       }
       final mapCode =
-          '(toon[\'$toonName\'] as List).map((e) => \$${elementType.getDisplayString(withNullability: false)}FromToon(e as Map<String, dynamic>)).toList()';
+          '(toon[\'$toonName\'] as List).map((e) => \$${_getDisplayStringWithoutNullability(elementType)}FromToon(e as Map<String, dynamic>)).toList()';
       if (fieldType.nullabilitySuffix == NullabilitySuffix.question) {
         return 'toon[\'$toonName\'] == null ? null : $mapCode';
       }
@@ -233,7 +246,7 @@ class ToonGenerator extends GeneratorForAnnotation<ToonSerializable> {
     }
 
     // Handle nested objects
-    final typeName = fieldType.getDisplayString(withNullability: false);
+    final typeName = _getDisplayStringWithoutNullability(fieldType);
     if (fieldType.nullabilitySuffix == NullabilitySuffix.question) {
       return 'toon[\'$toonName\'] == null ? null : \$${typeName}FromToon(toon[\'$toonName\'] as Map<String, dynamic>)';
     }
@@ -243,36 +256,43 @@ class ToonGenerator extends GeneratorForAnnotation<ToonSerializable> {
   /// Get ToonField annotation data for a field
   Map<String, dynamic>? _getFieldAnnotation(FieldElement field) {
     try {
-      final toonFieldAnnotations = field.metadata.where((a) {
-        final element = a.element;
-        if (element == null) return false;
-        final enclosing = element.enclosingElement;
-        return enclosing?.name == 'ToonField';
-      });
+      // Find ToonField annotation using TypeChecker
+      final toonFieldChecker = TypeChecker.fromUrl(
+        'package:flutter_car_toon/src/annotations/toon_field.dart#ToonField',
+      );
 
-      if (toonFieldAnnotations.isEmpty) return null;
+      final annotation = toonFieldChecker.firstAnnotationOf(field);
+      if (annotation == null) return null;
 
-      final annotation = toonFieldAnnotations.first;
-      final value = annotation.computeConstantValue();
-      if (value == null) return null;
+      final reader = ConstantReader(annotation);
 
       return {
-        'name': value.getField('name')?.toStringValue(),
-        'include': value.getField('include')?.toBoolValue() ?? true,
-        'includeIfNull': value.getField('includeIfNull')?.toBoolValue(),
-        'converter': value
-            .getField('converter')
-            ?.toTypeValue()
-            ?.getDisplayString(withNullability: false),
+        'name': reader.read('name').literalValue as String?,
+        'include': reader.read('include').literalValue as bool? ?? true,
+        'includeIfNull': reader.read('includeIfNull').literalValue as bool?,
+        'converter': () {
+          final converterField = reader.read('converter');
+          if (converterField.isNull) return null;
+          final converterType = converterField.typeValue;
+          return _getDisplayStringWithoutNullability(converterType);
+        }(),
       };
     } catch (e) {
       return null;
     }
   }
 
+  /// Get type name without nullability suffix
+  String _getDisplayStringWithoutNullability(DartType type) {
+    final displayString = type.getDisplayString();
+    return displayString.endsWith('?')
+        ? displayString.substring(0, displayString.length - 1)
+        : displayString;
+  }
+
   /// Check if type is a primitive
   bool _isPrimitive(DartType type) {
-    final typeName = type.getDisplayString(withNullability: false);
+    final typeName = _getDisplayStringWithoutNullability(type);
     return typeName == 'int' ||
         typeName == 'double' ||
         typeName == 'String' ||

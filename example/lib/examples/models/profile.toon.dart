@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 part of 'profile.dart';
 
@@ -25,7 +26,7 @@ Profile $ProfileFromToon(Map<String, dynamic> toon) {
     previousAddresses: toon['previousAddresses'] == null
         ? null
         : (toon['previousAddresses'] as List)
-            .map((e) => $AddressFromToon(e as Map<String, dynamic>))
-            .toList(),
+              .map((e) => $AddressFromToon(e as Map<String, dynamic>))
+              .toList(),
   );
 }

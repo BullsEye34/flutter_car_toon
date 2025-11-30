@@ -1,4 +1,5 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
+// dart format width=80
 
 part of 'person.dart';
 
@@ -9,11 +10,7 @@ part of 'person.dart';
 extension PersonToonExtension on Person {
   /// Convert this object to TOON map format
   Map<String, dynamic> toToon() {
-    return {
-      'name': name,
-      'age': age,
-      'email': email,
-    };
+    return {'name': name, 'age': age, 'email': email};
   }
 }
 
