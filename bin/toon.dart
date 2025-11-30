@@ -5,7 +5,7 @@ library;
 
 import 'dart:io';
 import 'package:args/args.dart';
-import 'package:flutter_car_toon/flutter_car_toon.dart';
+import 'package:flutter_car_toon/toon_core.dart';
 import 'dart:convert';
 
 void main(List<String> arguments) async {
