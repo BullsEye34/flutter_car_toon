@@ -4,7 +4,7 @@
 #
 Pod::Spec.new do |s|
   s.name             = 'flutter_car_toon'
-  s.version          = '0.1.6'
+  s.version          = '0.2.0'
   s.summary          = 'A Flutter plugin for parsing and formatting TOON files.'
   s.description      = <<-DESC
 A comprehensive TOON (Token-Oriented Object Notation) formatter plugin for Flutter/Dart with all the functionality of dart:convert's JSON library but for TOON format.

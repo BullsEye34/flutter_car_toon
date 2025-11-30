@@ -1,0 +1,8 @@
+# Build configuration for TOON code generation
+builders:
+  toon_serializable:
+    import: "package:flutter_car_toon/src/generator/builder.dart"
+    builder_factories: ["toonSerializable"]
+    build_extensions: {".dart": [".toon.dart"]}
+    auto_apply: dependents
+    build_to: source
