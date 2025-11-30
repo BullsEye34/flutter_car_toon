@@ -1,5 +1,16 @@
 # Changelog
 
+## [0.2.1] - 2024-11-30
+
+### Updated
+
+- Updated dependencies to latest compatible versions:
+  - analyzer: ^9.0.0 (latest)
+  - build: ^4.0.3 (latest)
+  - source_gen: ^4.1.1 (latest)
+- Removed unused dev dependencies (test, json_serializable, json_annotation)
+- Fixed analyzer 9.x API compatibility
+
 ## [0.2.0] - 2024-11-30
 
 ### Added
