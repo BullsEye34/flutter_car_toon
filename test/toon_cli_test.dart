@@ -31,7 +31,7 @@ void main() {
     test('shows version', () async {
       final result = await Process.run('dart', [cliPath, '--version']);
       expect(result.exitCode, equals(0));
-      expect(result.stdout, contains('TOON CLI v0.3.0'));
+      expect(result.stdout, contains('TOON CLI v0.3.1'));
       expect(result.stdout, contains('flutter_car_toon'));
     });
 

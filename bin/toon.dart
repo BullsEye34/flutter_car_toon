@@ -1,4 +1,5 @@
 #!/usr/bin/env dart
+// ignore_for_file: avoid_print
 
 /// TOON CLI - Command line tools for TOON format
 library;
@@ -31,7 +32,7 @@ void main(List<String> arguments) async {
     final results = parser.parse(arguments);
 
     if (results['version']) {
-      print('TOON CLI v0.3.0');
+      print('TOON CLI v0.3.1');
       print('Part of flutter_car_toon package');
       exit(0);
     }

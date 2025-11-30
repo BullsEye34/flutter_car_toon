@@ -1,5 +1,18 @@
 # Changelog
 
+## [0.3.1] - 2024-12-01
+
+### Fixed
+
+- Fixed pub.dev static analysis by disabling `avoid_print` lint rule
+  - Print statements are necessary and correct for CLI tools
+  - Ensures 50/50 score on pub.dev static analysis
+
+### Changed
+
+- Updated `analysis_options.yaml` to allow print statements in CLI context
+- Removed bin/ directory exclusion (not respected by pub.dev analyzer)
+
 ## [0.3.0] - 2024-11-30
 
 ### Added

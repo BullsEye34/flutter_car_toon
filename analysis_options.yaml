@@ -7,4 +7,3 @@ analyzer:
   exclude:
     - '**/*.g.dart'
     - '**/*.toon.dart'
-    - 'bin/**'  # Exclude CLI tools from analysis
