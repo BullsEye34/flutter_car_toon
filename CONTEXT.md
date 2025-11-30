@@ -4,7 +4,7 @@
 
 **Flutter CarToon** is a comprehensive TOON (Token-Oriented Object Notation) formatter plugin for Flutter that provides all the functionality of `dart:convert`'s JSON library but optimized for the TOON format.
 
-**Current Status**: Version 0.1.6 prepared for publication with enhanced SPM documentation (November 29, 2025) - Version 0.1.5 successfully published to pub.dev (November 29, 2025)
+**Current Status**: Version 0.2.0 with code generation system (November 30, 2025) - Major feature release with @ToonSerializable annotation support
 
 ### What is TOON?
 
@@ -38,7 +38,12 @@ lib/
     ├── toon_options.dart          # Configuration and options system
     ├── toon_error.dart            # Comprehensive error handling
     ├── toon_converter.dart        # Extensible type conversion system
-    ├── toon_annotations.dart      # Code generation support (structure)
+    ├── annotations/               # Code generation annotations
+    │   ├── toon_serializable.dart # @ToonSerializable annotation
+    │   └── toon_field.dart        # @ToonField annotation
+    ├── generator/                 # Code generation system
+    │   ├── toon_generator.dart    # Main generator implementation
+    │   └── builder.dart           # Build_runner integration
     ├── toon_utils.dart           # Utility functions and helpers
     └── toon_validation.dart      # Data validation framework
 ```
@@ -81,14 +86,23 @@ lib/
 
 6. **Testing Suite**
 
-   - 88 comprehensive tests covering all functionality
+   - 103 comprehensive tests covering all functionality (88 core + 15 code generation)
    - All tests passing ✅
    - Test coverage for encoding, decoding, errors, options
 
 7. **Documentation**
+
    - Comprehensive README with examples and API reference
    - Inline code documentation with detailed examples
    - Performance comparisons and usage guidelines
+
+8. **Code Generation System (v0.2.0)**
+   - Complete `@ToonSerializable` annotation implementation
+   - `@ToonField` for field-level customization
+   - Automatic generation of `toToon()` and `$ClassFromToon()` methods
+   - Support for nested objects and collections
+   - Null-safety aware code generation
+   - 15 comprehensive tests for code generation features
 
 ### ✅ Recently Enhanced (v0.1.2)
 
@@ -106,18 +120,40 @@ lib/
 
 ### 🔄 Partially Implemented
 
-2. **Streaming Support**
+1. **Streaming Support**
 
    - Framework structure in place
    - **Future Enhancement**: `ToonStreamEncoder` and `ToonStreamDecoder`
 
-3. **Code Generation**
-   - Annotation structures defined
-   - **Future Enhancement**: Build system integration for auto-generated converters
-
 ### 📋 Version History & Future Roadmap
 
-#### ✅ Version 0.1.3 (Prepared November 24, 2025)
+#### ✅ Version 0.2.0 (Published November 30, 2025)
+
+- **Code Generation System**: Full implementation of @ToonSerializable and @ToonField annotations
+- **Build Runner Integration**: Seamless code generation with build_runner
+- **Nested Object Support**: Automatic recursive serialization for nested @ToonSerializable classes
+- **Type Support**: Primitives, collections, nullable types, custom converters
+- **Testing**: 15 comprehensive tests for code generation features
+- **Examples**: Reorganized example structure with User, Person, Address, Profile models
+- **Dependencies**: Added source_gen ^1.5.0, build ^2.4.1, analyzer ^6.4.1
+
+#### ✅ Version 0.1.6 (Published November 29, 2025)
+
+- **Documentation Enhancement**: Prominently highlighted Swift Package Manager early adoption
+- **Marketing**: Showcased SPM support as key differentiator and future-proof solution
+
+#### ✅ Version 0.1.5 (Published November 29, 2025)
+
+- **Swift Package Manager Support**: Full SPM implementation for iOS/macOS
+- **Podspec Updates**: Proper metadata, licensing, and git sources
+- **Directory Structure**: SPM-compatible layout with Package.swift files
+
+#### ✅ Version 0.1.4 (Published November 24, 2025)
+
+- **Dart Formatting**: Fixed formatting issues across entire codebase
+- **Code Quality**: Full compliance with Dart formatter standards
+
+#### ✅ Version 0.1.3 (Published November 24, 2025)
 
 - **Code Quality** - Fixed all linting issues for full pub.dev compliance
 - **Dart Style** - Added proper braces to single-line while statements in ToonDecoder
@@ -130,7 +166,7 @@ lib/
 - Round-trip JSON↔TOON conversion with complete data integrity
 - Large dataset support with configurable depth limits
 - Robust parsing of complex nested structures
-- 88 comprehensive tests ensuring reliability
+- 103 comprehensive tests ensuring reliability (88 core + 15 code generation)
 - Professional documentation and branding
 - Successfully published to pub.dev
 
@@ -340,7 +376,7 @@ The project successfully delivers on all original requirements:
 
 - **Package Status**: Live on pub.dev as `flutter_car_toon: ^0.1.2`
 - **Decoder Status**: Enhanced implementation with full tabular array support
-- **Test Coverage**: 88 comprehensive tests, all passing
+- **Test Coverage**: 103 comprehensive tests, all passing (88 core + 15 code generation)
 - **Documentation**: Complete with advanced examples and installation instructions
 - **Production Readiness**: Fully validated and published
 

@@ -69,26 +69,42 @@ void main() {
       test('decode simple arrays', () {
         const toonString = '[3]: 1,2,3';
         final result = decoder.convert(toonString);
-        // Basic decoder treats arrays as key-value pairs
-        expect(result, equals({'[3]': '1,2,3'}));
+        // Enhanced decoder properly parses arrays
+        expect(
+          result,
+          equals({
+            '': [1, 2, 3],
+          }),
+        );
       });
 
       test('decode string arrays', () {
         const toonString = '[2]: hello,world';
         final result = decoder.convert(toonString);
-        expect(result, equals({'[2]': 'hello,world'}));
+        expect(
+          result,
+          equals({
+            '': ['hello', 'world'],
+          }),
+        );
       });
 
       test('decode empty arrays', () {
         const toonString = '[0]: ';
         final result = decoder.convert(toonString);
+        // Empty arrays are treated as key-value for edge case
         expect(result, equals({'[0]': ''}));
       });
 
       test('decode mixed type arrays', () {
         const toonString = '[4]: 1,hello,true,null';
         final result = decoder.convert(toonString);
-        expect(result, equals({'[4]': '1,hello,true,null'}));
+        expect(
+          result,
+          equals({
+            '': [1, 'hello', true, null],
+          }),
+        );
       });
     });
 

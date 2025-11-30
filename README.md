@@ -30,7 +30,7 @@ While [`toon_formatter`](https://pub.dev/packages/toon_formater) provides basic 
 | **🔧 Extensibility**  | Custom type converters & plugins                  | Limited customization     |
 | **⚡ Performance**    | Multiple optimization strategies                  | Basic implementation      |
 | **📚 API Design**     | Mirrors `dart:convert` patterns                   | Simple encode/decode only |
-| **🔍 Testing**        | 88 comprehensive tests                            | Limited test coverage     |
+| **🔍 Testing**        | 103 comprehensive tests                           | Limited test coverage     |
 | **📖 Documentation**  | Complete API docs & examples                      | Basic documentation       |
 | **🛠️ Tooling**        | Rich API (CLI tools planned)                      | No additional tools       |
 | **🚀 SPM Support**    | ✅ Early adopter (iOS/macOS)                      | ❌ CocoaPods only         |
@@ -40,12 +40,12 @@ While [`toon_formatter`](https://pub.dev/packages/toon_formater) provides basic 
 - **Production-ready**: Comprehensive error handling with detailed context
 - **Developer-friendly**: Familiar `dart:convert` API patterns (exact same interface)
 - **Extensible**: Built-in converters for DateTime, Duration, BigInt, URI types
-- **Well-tested**: 88 comprehensive tests ensure reliability
+- **Well-tested**: 103 comprehensive tests ensure reliability
 - **Performance-focused**: Multiple optimization strategies for different use cases
 
 > **Acknowledgments**: This project is highly inspired by the [`toon_formatter`](https://pub.dev/packages/toon_formater) package and follows the architectural patterns established by Dart's [`dart:convert`](https://api.dart.dev/stable/dart-convert/dart-convert-library.html) library to ensure familiar and consistent usage patterns.
 
-[![pub package](https://img.shields.io/badge/pub-v0.1.6-blue)](https://pub.dev/packages/flutter_car_toon)
+[![pub package](https://img.shields.io/badge/pub-v0.2.0-blue)](https://pub.dev/packages/flutter_car_toon)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## What is TOON?
@@ -64,7 +64,14 @@ Add this package to your `pubspec.yaml`:
 
 ```yaml
 dependencies:
-  flutter_car_toon: ^0.1.6
+  flutter_car_toon: ^0.2.0
+```
+
+For code generation support, also add:
+
+```yaml
+dev_dependencies:
+  build_runner: ^2.4.0
 ```
 
 Then run:
@@ -365,28 +372,151 @@ Based on benchmarks against JSON:
 
 ## Annotations (Code Generation)
 
-Future support for code generation (similar to json_serializable):
+**NEW in v0.2.0!** Automatic code generation for TOON serialization:
+
+### Setup
+
+1. Add the dependencies:
+
+```yaml
+dependencies:
+  flutter_car_toon: ^0.2.0
+
+dev_dependencies:
+  build_runner: ^2.4.0
+```
+
+2. Annotate your classes:
 
 ```dart
 import 'package:flutter_car_toon/flutter_car_toon.dart';
+
+part 'user.toon.dart';
 
 @ToonSerializable()
 class User {
   final String name;
   final int age;
-
-  @ToonField(name: 'email_address')
   final String email;
 
-  @ToonField(include: false)
-  final String password; // Won't be serialized
+  @ToonField(name: 'is_active')
+  final bool isActive;
 
-  User({required this.name, required this.age, required this.email, required this.password});
+  @ToonField(includeIfNull: false)
+  final String? bio;
 
-  // Generated methods (future):
-  // String toToon() => _$UserToToon(this);
-  // factory User.fromToon(String toon) => _$UserFromToon(toon);
+  const User({
+    required this.name,
+    required this.age,
+    required this.email,
+    this.isActive = true,
+    this.bio,
+  });
 }
+```
+
+3. Run the code generator:
+
+```bash
+dart run build_runner build
+```
+
+### Generated Code
+
+The generator creates a `.toon.dart` file with:
+
+```dart
+// user.toon.dart (generated)
+extension UserToonExtension on User {
+  Map<String, dynamic> toToon() {
+    return {
+      'name': name,
+      'age': age,
+      'email': email,
+      'is_active': isActive,
+      if (bio != null) 'bio': bio,
+    };
+  }
+}
+
+User $UserFromToon(Map<String, dynamic> toon) {
+  return User(
+    name: toon['name'] as String,
+    age: toon['age'] as int,
+    email: toon['email'] as String,
+    isActive: toon['is_active'] as bool,
+    bio: toon['bio'] as String?,
+  );
+}
+```
+
+### Usage
+
+```dart
+// Serialize to TOON
+final user = User(name: 'Alice', age: 30, email: 'alice@example.com');
+final toonMap = user.toToon();
+final toonString = toon.encode(toonMap);
+
+// Deserialize from TOON
+final decoded = toon.decode(toonString) as Map<String, dynamic>;
+final user = $UserFromToon(decoded);
+```
+
+### Annotation Options
+
+**@ToonSerializable()**
+
+- `createFactory` (default: `true`) - Generate fromToon function
+- `createToToon` (default: `true`) - Generate toToon method
+- `includeIfNull` (default: `true`) - Include null values in output
+- `explicitToToon` (default: `false`) - Require explicit toToon() calls for nested objects
+
+**@ToonField()**
+
+- `name` - Custom field name in TOON output
+- `include` (default: `true`) - Whether to include this field
+- `includeIfNull` - Override class-level null handling
+- `converter` - Custom type converter
+
+### Nested Objects
+
+Code generation supports nested @ToonSerializable objects:
+
+```dart
+@ToonSerializable()
+class Address {
+  final String street;
+  final String city;
+  final int zipCode;
+
+  const Address({required this.street, required this.city, required this.zipCode});
+}
+
+@ToonSerializable()
+class Profile {
+  final String username;
+  final Address address;
+  final List<Address>? previousAddresses;
+
+  const Profile({required this.username, required this.address, this.previousAddresses});
+}
+
+// Usage
+final profile = Profile(
+  username: 'johndoe',
+  address: Address(street: '123 Main St', city: 'NYC', zipCode: 10001),
+);
+
+final toonString = toon.encode(profile.toToon());
+```
+
+### Watch Mode
+
+For automatic regeneration during development:
+
+```bash
+dart run build_runner watch
 ```
 
 ## API Reference
@@ -422,20 +552,20 @@ class User {
 
 ## 📊 Detailed Comparison with Existing Packages
 
-| Feature                      | flutter_car_toon            | toon_formatter | Advantages                                     |
-| ---------------------------- | --------------------------- | -------------- | ---------------------------------------------- |
-| **Basic encode/decode**      | ✅ Full API                 | ✅ Basic       | Complete `dart:convert` compatibility          |
-| **Custom options**           | ✅ 12 comprehensive options | ✅ Limited     | Extensive configuration system                 |
-| **Error handling**           | ✅ 6 error types            | ❌ Basic       | Detailed context, suggestions, source excerpts |
-| **Validation**               | ✅ Validation framework     | ❌ None        | Built-in validation system                     |
-| **Streaming**                | ✅ Basic streaming API      | ❌ None        | Foundation for large dataset processing        |
-| **Type converters**          | ✅ Extensible system        | ❌ Limited     | DateTime, Duration, custom types               |
-| **Performance optimization** | ✅ Multiple strategies      | ❌ Basic       | Compact, pretty, performance modes             |
-| **Test coverage**            | ✅ 88 comprehensive         | ❌ Limited     | Production-ready reliability                   |
-| **Documentation**            | ✅ Complete API docs        | ❌ Basic       | Examples, guides, API reference                |
-| **Code generation**          | 🚧 Planned v0.2.0           | ✅ Available   | Will support @ToonSerializable                 |
-| **CLI tools**                | 🚧 Planned v0.3.0           | ❌ None        | Format validation, conversion tools            |
-| **Platform support**         | ✅ All platforms            | ✅ All         | Flutter Web, Desktop, Mobile                   |
+| Feature                      | flutter_car_toon            | toon_formatter | Advantages                                          |
+| ---------------------------- | --------------------------- | -------------- | --------------------------------------------------- |
+| **Basic encode/decode**      | ✅ Full API                 | ✅ Basic       | Complete `dart:convert` compatibility               |
+| **Custom options**           | ✅ 12 comprehensive options | ✅ Limited     | Extensive configuration system                      |
+| **Error handling**           | ✅ 6 error types            | ❌ Basic       | Detailed context, suggestions, source excerpts      |
+| **Validation**               | ✅ Validation framework     | ❌ None        | Built-in validation system                          |
+| **Streaming**                | ✅ Basic streaming API      | ❌ None        | Foundation for large dataset processing             |
+| **Type converters**          | ✅ Extensible system        | ❌ Limited     | DateTime, Duration, custom types                    |
+| **Performance optimization** | ✅ Multiple strategies      | ❌ Basic       | Compact, pretty, performance modes                  |
+| **Test coverage**            | ✅ 103 comprehensive        | ❌ Limited     | Production-ready reliability (88 core + 15 codegen) |
+| **Documentation**            | ✅ Complete API docs        | ❌ Basic       | Examples, guides, API reference                     |
+| **Code generation**          | ✅ Available v0.2.0         | ✅ Available   | Supports @ToonSerializable with nested objects      |
+| **CLI tools**                | 🚧 Planned v0.3.0           | ❌ None        | Format validation, conversion tools                 |
+| **Platform support**         | ✅ All platforms            | ✅ All         | Flutter Web, Desktop, Mobile                        |
 
 ### 🎯 **Migration Benefits**
 
@@ -483,6 +613,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - Inspired by `dart:convert` and `json_serializable`
 - Enhanced beyond `toon_formatter` with enterprise features
 - Built with ❤️ for the Flutter community
-- **88 tests** ensure production reliability
+- **103 tests** ensure production reliability (88 core + 15 code generation)
 
 > AI was used to write this comprehensive implementation

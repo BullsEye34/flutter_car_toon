@@ -1,8 +1,63 @@
 # Changelog
 
+## [0.2.0] - 2024-11-30
+
+### Added
+
+- 🎉 **Code Generation System** - Automatic TOON serialization with build_runner
+  - `@ToonSerializable()` annotation for classes
+  - `@ToonField()` annotation for field-level customization
+  - Generates `.toon.dart` files with `toToon()` extension methods and `$ClassFromToon()` factory functions
+  - Support for nested @ToonSerializable objects with automatic recursive serialization
+  - List support for both primitives and nested objects
+  - Nullable type handling with proper null checks
+  - Custom field naming (`@ToonField(name: 'custom_name')`)
+  - Conditional field inclusion (`@ToonField(includeIfNull: false)`)
+  - Full integration with existing TOON encoder/decoder
+
+### Features
+
+- **Generator Configuration** - Comprehensive annotation options:
+  - `createFactory` - Control factory function generation
+  - `createToToon` - Control toToon method generation
+  - `includeIfNull` - Global null handling strategy
+  - `explicitToToon` - Explicit nested object serialization
+- **Type Support** - Handles all Dart primitives, collections, and custom types
+- **Build Integration** - Seamless build_runner integration with proper `build.yaml` configuration
+- **Part Files** - Standard Dart part file pattern for generated code
+
+### Testing
+
+- Added 15 comprehensive tests for code generation (103 total tests)
+- Tests cover simple objects, nested objects, lists, nullables, and round-trip serialization
+- Separate test suites for basic and nested object scenarios
+- Full TOON format integration testing
+
+### Documentation
+
+- Updated README with complete code generation guide
+- Added setup instructions and usage examples
+- Documented all annotation parameters and options
+- Included nested object serialization examples
+- Added watch mode and development workflow guidance
+
+### Project Structure
+
+- Organized example models in `lib/examples/` directory
+- Created proper test structure for generated code validation
+- Added example models: User, Person, Address, Profile
+
+### Dependencies
+
+- Added `source_gen: ^1.5.0` for code generation
+- Added `build: ^2.4.1` for build system integration
+- Added `analyzer: ^6.4.1` for Dart code analysis
+- Updated example with `build_runner: ^2.4.10`
+
 ## [0.1.6] - 2024-11-29
 
 ### Changed
+
 - 📚 **Documentation Enhancement** - Prominently highlighted Swift Package Manager early adoption
   - Added dedicated SPM section in README showcasing benefits and platform support
   - Featured SPM support in comparison table as key differentiator
@@ -10,6 +65,7 @@
   - Positioned package as future-ready for Flutter 3.24+ projects
 
 ### Marketing
+
 - Showcased early adopter status of Flutter's modern iOS/macOS dependency management
 - Enhanced package visibility for developers seeking future-proof solutions
 
